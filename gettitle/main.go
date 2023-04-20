@@ -17,25 +17,13 @@ func worker(id int, jobs <-chan string) {
 }
 
 func getTitle(url string) {
-	resp, err := http.Get(url + "/.git/head")
+	resp, err := http.Get(url)
 	if err != nil {
 		errors.New("http请求失败")
 		return
 	}
 	defer resp.Body.Close()
-	/*
-		if resp.StatusCode == 200 {
-			data, err := ioutil.ReadAll(resp.Body)
-			if err != nil {
-				fmt.Println("read error:", err)
-				return
-			}
-			if find := strings.Contains(string(data), "refs/head"); find {
-				fmt.Println("worker:", url+"/.git/")
-			}
 
-		}
-	*/
 	if resp.StatusCode == 200 {
 		data, err := ioutil.ReadAll(resp.Body)
 		if err != nil {
